@@ -40,3 +40,38 @@ struct PrimaryButton: View {
         .disabled(isDisabled || isLoading)
     }
 }
+
+struct PrimaryButton_Previews: PreviewProvider {
+
+    static var previews: some View {
+
+        Group {
+
+            PrimaryButton(title: "Login") {
+
+            }
+            .padding()
+            .previewDisplayName("Default")
+
+            PrimaryButton(
+                title: "Login",
+                isLoading: true
+            ) {
+
+            }
+            .padding()
+            .previewDisplayName("Loading")
+
+            PrimaryButton(
+                title: "Login",
+                isDisabled: true
+            ) {
+
+            }
+            .padding()
+            .previewDisplayName("Disabled")
+        }
+        .background(Color.black)
+        .previewLayout(.sizeThatFits)
+    }
+}

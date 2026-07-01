@@ -65,3 +65,52 @@ struct AppSecureField: View {
         .cornerRadius(16)
     }
 }
+
+// MARK: - Preview
+
+struct AppSecureField_Previews: PreviewProvider {
+
+    struct HiddenPreview: View {
+
+        @State private var password = "Password123"
+        @State private var isVisible = false
+
+        var body: some View {
+            AppSecureField(
+                title: "Password",
+                text: $password,
+                isVisible: $isVisible
+            )
+            .padding()
+            .background(Color.black)
+        }
+    }
+
+    struct VisiblePreview: View {
+
+        @State private var password = "Password123"
+        @State private var isVisible = true
+
+        var body: some View {
+            AppSecureField(
+                title: "Password",
+                text: $password,
+                isVisible: $isVisible
+            )
+            .padding()
+            .background(Color.black)
+        }
+    }
+
+    static var previews: some View {
+        Group {
+            HiddenPreview()
+                .previewDisplayName("Hidden Password")
+
+            VisiblePreview()
+                .previewDisplayName("Visible Password")
+        }
+        .previewLayout(.sizeThatFits)
+        .preferredColorScheme(.dark)
+    }
+}

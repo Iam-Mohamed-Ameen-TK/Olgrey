@@ -81,3 +81,44 @@ struct SocialLoginButton: View {
         }
     }
 }
+
+// MARK: - Preview
+
+struct SocialLoginButton_Previews: PreviewProvider {
+
+    static var previews: some View {
+
+        Group {
+
+            HStack(spacing: 24) {
+
+                SocialLoginButton(type: .phone)
+
+                SocialLoginButton(type: .google)
+
+                SocialLoginButton(type: .apple)
+            }
+            .padding()
+            .background(Color.black)
+            .previewDisplayName("Social Login Buttons")
+
+            SocialLoginButton(type: .phone)
+                .padding()
+                .background(Color.black)
+                .previewLayout(.sizeThatFits)
+                .previewDisplayName("Phone")
+
+            SocialLoginButton(type: .google)
+                .padding()
+                .background(Color.black)
+                .previewLayout(.sizeThatFits)
+                .previewDisplayName("Google")
+
+            SocialLoginButton(type: .apple)
+                .padding()
+                .background(Color.black)
+                .previewLayout(.sizeThatFits)
+                .previewDisplayName("Apple")
+        }
+    }
+}

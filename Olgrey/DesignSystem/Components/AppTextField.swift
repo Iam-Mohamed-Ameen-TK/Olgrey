@@ -42,3 +42,40 @@ struct AppTextField: View {
         .cornerRadius(16)
     }
 }
+
+// MARK: - Preview
+
+struct AppTextField_Previews: PreviewProvider {
+
+    struct PreviewWrapper: View {
+
+        @State private var email = ""
+
+        var body: some View {
+
+            VStack(spacing: 20) {
+
+                AppTextField(
+                    title: "Email",
+                    systemImage: "envelope.fill",
+                    text: $email,
+                    keyboardType: .emailAddress
+                )
+
+                AppTextField(
+                    title: "Username",
+                    systemImage: "person.fill",
+                    text: $email
+                )
+            }
+            .padding()
+            .background(Color.black)
+        }
+    }
+
+    static var previews: some View {
+        PreviewWrapper()
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
+    }
+}

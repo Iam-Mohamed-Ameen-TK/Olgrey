@@ -24,7 +24,7 @@ struct LoginView: View {
 
             // Dark Overlay
 
-            Color.black.opacity(0.30)
+            Color.black.opacity(0.10)
                 .ignoresSafeArea()
 
             GeometryReader { geometry in
@@ -116,7 +116,7 @@ struct LoginView: View {
 
                             }
                         }
-                        .padding(.horizontal, 24)
+                        .padding(.horizontal, 30)
 
                         Spacer()
 

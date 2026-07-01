@@ -38,3 +38,22 @@ struct LoadingView: View {
         }
     }
 }
+
+// MARK: - Preview
+
+struct LoadingView_Previews: PreviewProvider {
+
+    static var previews: some View {
+
+        ZStack {
+
+            Image("login_background")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+
+            LoadingView(message: "Signing In...")
+        }
+        .preferredColorScheme(.dark)
+    }
+}

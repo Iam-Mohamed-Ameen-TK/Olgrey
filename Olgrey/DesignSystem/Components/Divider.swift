@@ -27,5 +27,16 @@ struct AuthDivider: View {
 
         }
     }
+}
 
+
+struct AuthDivider_Previews: PreviewProvider {
+
+    static var previews: some View {
+
+        AuthDivider()
+            .padding()
+            .background(Color.black)
+            .previewLayout(.sizeThatFits)
+    }
 }

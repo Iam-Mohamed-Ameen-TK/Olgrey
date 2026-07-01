@@ -54,3 +54,51 @@ struct BlurView: UIViewRepresentable {
         uiView.effect = UIBlurEffect(style: style)
     }
 }
+
+// MARK: - Preview
+
+struct GlassView_Previews: PreviewProvider {
+
+    static var previews: some View {
+
+        ZStack {
+
+            // Background for preview
+            LinearGradient(
+                gradient: Gradient(colors: [.purple, .black]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+
+            GlassView {
+
+                VStack(spacing: 16) {
+
+                    Text("Olgrey")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+
+                    Text("Experience premium glassmorphism.")
+                        .font(.subheadline)
+                        .foregroundColor(.white.opacity(0.8))
+                        .multilineTextAlignment(.center)
+
+                    Button("Get Started") {
+
+                    }
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .background(Color.white)
+                    .cornerRadius(12)
+
+                }
+            }
+            .frame(width: 320)
+        }
+        .previewDevice("iPhone 14 Pro")
+        .preferredColorScheme(.dark)
+    }
+}
