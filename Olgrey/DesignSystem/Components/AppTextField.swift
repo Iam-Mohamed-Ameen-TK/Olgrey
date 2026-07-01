@@ -8,24 +8,37 @@
 import SwiftUI
 
 struct AppTextField: View {
-    let placeholder: String
+
+    let title: String
+    var systemImage: String = "person.fill"
     @Binding var text: String
-    var isSecure: Bool = false
     var keyboardType: UIKeyboardType = .default
 
     var body: some View {
-        Group {
-            if isSecure {
-                SecureField(placeholder, text: $text)
-            } else {
-                TextField(placeholder, text: $text)
-                    .keyboardType(keyboardType)
-            }
+
+        HStack(spacing: 15) {
+
+            Image(systemName: systemImage)
+                .foregroundColor(.white.opacity(0.7))
+                .frame(width: 20)
+
+            TextField("", text: $text)
+                .placeholder(when: text.isEmpty) {
+                    Text(title)
+                        .foregroundColor(.white.opacity(0.5))
+                }
+                .foregroundColor(.white)
+                .keyboardType(keyboardType)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
         }
         .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
-        .autocapitalization(.none)
-        .disableAutocorrection(true)
+        .frame(height: 58)
+        .background(Color.white.opacity(0.08))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.white.opacity(0.12), lineWidth: 1)
+        )
+        .cornerRadius(16)
     }
 }

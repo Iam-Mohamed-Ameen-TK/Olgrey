@@ -8,29 +8,51 @@
 import Foundation
 import Combine
 
-@MainActor
-class SignupViewModel: ObservableObject {
+final class SignupViewModel: ObservableObject {
+
     @Published var name: String = ""
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
+
+    @Published var isPasswordVisible: Bool = false
+    @Published var isConfirmPasswordVisible: Bool = false
+
     @Published var isLoading: Bool = false
-    @Published var errorMessage: String? = nil
+    @Published var showAlert: Bool = false
+    @Published var alertMessage: String = ""
 
     func signup() {
-        guard !name.isEmpty, !email.isEmpty, !password.isEmpty else {
-            errorMessage = "Please fill in all fields."
+
+        guard !name.isEmpty else {
+            alertMessage = "Please enter your name."
+            showAlert = true
             return
         }
+
+        guard !email.isEmpty else {
+            alertMessage = "Please enter your email."
+            showAlert = true
+            return
+        }
+
+        guard !password.isEmpty else {
+            alertMessage = "Please enter a password."
+            showAlert = true
+            return
+        }
+
         guard password == confirmPassword else {
-            errorMessage = "Passwords do not match."
+            alertMessage = "Passwords do not match."
+            showAlert = true
             return
         }
+
         isLoading = true
-        // TODO: Call authentication API
-        Task {
-            defer { isLoading = false }
-            // await APIClient.shared.signup(name: name, email: email, password: password)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.isLoading = false
+            print("Signup Success")
         }
     }
 }

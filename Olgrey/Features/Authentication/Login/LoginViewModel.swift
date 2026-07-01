@@ -8,23 +8,38 @@
 import Foundation
 import Combine
 
-@MainActor
-class LoginViewModel: ObservableObject {
-    @Published var email: String = ""
-    @Published var password: String = ""
-    @Published var isLoading: Bool = false
-    @Published var errorMessage: String? = nil
+final class LoginViewModel: ObservableObject {
 
-    func login() {
-        guard !email.isEmpty, !password.isEmpty else {
-            errorMessage = "Please fill in all fields."
+    @Published var login = LoginModel()
+
+    @Published var isPasswordVisible = false
+
+    @Published var isLoading = false
+
+    @Published var showAlert = false
+    @Published var alertMessage = ""
+
+    func loginUser() {
+
+        guard !login.email.isEmpty else {
+            alertMessage = "Please enter your email."
+            showAlert = true
             return
         }
+
+        guard !login.password.isEmpty else {
+            alertMessage = "Please enter your password."
+            showAlert = true
+            return
+        }
+
         isLoading = true
-        // TODO: Call authentication API
-        Task {
-            defer { isLoading = false }
-            // await APIClient.shared.login(email: email, password: password)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+
+            self.isLoading = false
+
+            print("Login Success")
         }
     }
 }

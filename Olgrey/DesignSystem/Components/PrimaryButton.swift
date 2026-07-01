@@ -8,27 +8,34 @@
 import SwiftUI
 
 struct PrimaryButton: View {
+
     let title: String
-    let action: () -> Void
     var isLoading: Bool = false
     var isDisabled: Bool = false
+    let action: () -> Void
 
     var body: some View {
+
         Button(action: action) {
+
             HStack {
+
                 if isLoading {
+
                     ProgressView()
                         .tint(.white)
+
                 } else {
+
                     Text(title)
-                        .font(.headline)
+                        .font(.system(size: 16, weight: .semibold))
                 }
             }
             .frame(maxWidth: .infinity)
-            .padding()
-            .background(isDisabled ? Color.gray : Color.accentColor)
-            .foregroundColor(.white)
-            .cornerRadius(12)
+            .frame(height: 58)
+            .background(isDisabled ? Color.white.opacity(0.3) : Color.white)
+            .foregroundColor(isDisabled ? .white.opacity(0.5) : Color.black)
+            .cornerRadius(16)
         }
         .disabled(isDisabled || isLoading)
     }

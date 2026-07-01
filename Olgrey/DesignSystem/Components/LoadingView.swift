@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct LoadingView: View {
+
     var message: String = "Loading..."
 
     var body: some View {
+
         ZStack {
-            Color.black.opacity(0.3)
+
+            Color.black.opacity(0.4)
                 .ignoresSafeArea()
 
             VStack(spacing: 16) {
+
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     .scaleEffect(1.5)
@@ -25,8 +29,12 @@ struct LoadingView: View {
                     .font(.subheadline)
             }
             .padding(32)
-            .background(Color(.systemGray3).opacity(0.9))
-            .cornerRadius(16)
+            .background(Color.white.opacity(0.1))
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color.white.opacity(0.15), lineWidth: 1)
+            )
+            .cornerRadius(20)
         }
     }
 }
