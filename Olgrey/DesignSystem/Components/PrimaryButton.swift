@@ -10,6 +10,7 @@ import SwiftUI
 struct PrimaryButton: View {
 
     let title: String
+    var trailingIcon: String? = nil
     var isLoading: Bool = false
     var isDisabled: Bool = false
     let action: () -> Void
@@ -23,18 +24,31 @@ struct PrimaryButton: View {
                 if isLoading {
 
                     ProgressView()
-                        .tint(.white)
+                        .tint(Color(red: 244/255, green: 231/255, blue: 213/255)) // Beige tint
 
                 } else {
 
                     Text(title)
-                        .font(.system(size: 16, weight: .semibold))
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundStyle(LinearGradient.beigeGold)
+
+                    if let icon = trailingIcon {
+                        Image(systemName: icon)
+                            .foregroundStyle(LinearGradient.beigeGold)
+                    }
                 }
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 58)
-            .background(isDisabled ? Color.white.opacity(0.3) : Color.white)
-            .foregroundColor(isDisabled ? .white.opacity(0.5) : Color.black)
+            .frame(height: 48)
+            .background(
+                Group {
+                    if isDisabled {
+                        Color.white.opacity(0.3)
+                    } else {
+                        LinearGradient.darkRed
+                    }
+                }
+            )
             .cornerRadius(16)
         }
         .disabled(isDisabled || isLoading)

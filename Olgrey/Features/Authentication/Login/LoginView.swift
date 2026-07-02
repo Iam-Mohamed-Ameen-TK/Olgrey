@@ -36,19 +36,20 @@ struct LoginView: View {
 
                         // MARK: Logo
 
-                        Image("app_logo")
+                        Image("signup_logo")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 90, height: 90)
 
-                        Text("Interact")
+                        Text("Welcome Back")
                             .font(.system(size: 34, weight: .bold))
-                            .foregroundColor(.white)
+                            .foregroundStyle(LinearGradient.beigeGold)
                             .padding(.top, 12)
 
-                        Text("Real people. Real connections.")
+                        Text("Sign in to continue")
                             .font(.system(size: 16))
-                            .foregroundColor(.white.opacity(0.75))
+                            .foregroundStyle(LinearGradient.beigeGold)
+                            .opacity(0.85)
                             .padding(.bottom, 35)
 
                         // MARK: Glass Card
@@ -79,7 +80,8 @@ struct LoginView: View {
 
                                         Text("Forgot Password?")
                                             .font(.footnote)
-                                            .foregroundColor(.white.opacity(0.8))
+                                            .foregroundStyle(LinearGradient.beigeGold)
+                                            .opacity(0.9)
                                     }
                                 }
 
@@ -101,14 +103,15 @@ struct LoginView: View {
                                 HStack(spacing: 4) {
 
                                     Text("Don't have an account?")
-                                        .foregroundColor(.white.opacity(0.75))
+                                        .foregroundStyle(LinearGradient.beigeGold)
+                                        .opacity(0.85)
 
                                     Button {
 
                                     } label: {
 
                                         Text("Sign Up")
-                                            .foregroundColor(.white)
+                                            .foregroundStyle(LinearGradient.beigeGold)
                                             .fontWeight(.bold)
                                     }
                                 }

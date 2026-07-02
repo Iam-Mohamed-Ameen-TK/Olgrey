@@ -1,0 +1,76 @@
+//
+//  VerificationViewModel.swift
+//  Olgrey
+//
+//  Created by Mohamed Ameen on 01/07/26.
+//
+
+import Foundation
+import Combine
+
+final class VerificationViewModel: ObservableObject {
+
+    @Published var dob: String = ""
+    @Published var gender: String = ""
+    @Published var email: String = ""
+    @Published var phone: String = ""
+
+    @Published var isEmailVerified: Bool = false
+    @Published var isPhoneVerified: Bool = false
+
+    @Published var navigateToEmailOTP: Bool = false
+    @Published var navigateToPhoneOTP: Bool = false
+
+    @Published var isLoading: Bool = false
+    @Published var showAlert: Bool = false
+    @Published var alertMessage: String = ""
+
+    // Pre-fill email from signup if provided
+    init(email: String = "") {
+        self.email = email
+    }
+
+    var emailOTPModel: OTPVerificationModel {
+        OTPVerificationModel(channel: .email, destination: email)
+    }
+
+    var phoneOTPModel: OTPVerificationModel {
+        OTPVerificationModel(channel: .phone, destination: phone)
+    }
+
+    var canProceed: Bool {
+        isEmailVerified && isPhoneVerified && !dob.isEmpty && !gender.isEmpty
+    }
+
+    func sendEmailOTP() {
+        guard !email.isEmpty else {
+            alertMessage = "Please enter your email address."
+            showAlert = true
+            return
+        }
+        navigateToEmailOTP = true
+    }
+
+    func sendPhoneOTP() {
+        guard !phone.isEmpty else {
+            alertMessage = "Please enter your phone number."
+            showAlert = true
+            return
+        }
+        navigateToPhoneOTP = true
+    }
+
+    func complete() {
+        guard canProceed else {
+            alertMessage = "Please verify your email and phone, and fill in all fields."
+            showAlert = true
+            return
+        }
+        isLoading = true
+        // TODO: Call API to complete profile
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.isLoading = false
+            print("Profile completion successful")
+        }
+    }
+}

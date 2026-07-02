@@ -14,6 +14,7 @@ final class SignupViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
+    @Published var agreedToTerms: Bool = false
 
     @Published var isPasswordVisible: Bool = false
     @Published var isConfirmPasswordVisible: Bool = false
@@ -21,6 +22,8 @@ final class SignupViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var showAlert: Bool = false
     @Published var alertMessage: String = ""
+
+    @Published var navigateToVerification: Bool = false
 
     func signup() {
 
@@ -48,11 +51,13 @@ final class SignupViewModel: ObservableObject {
             return
         }
 
-        isLoading = true
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.isLoading = false
-            print("Signup Success")
+        guard agreedToTerms else {
+            alertMessage = "Please agree to the Terms of Service and Privacy Policy."
+            showAlert = true
+            return
         }
+
+        // Navigate to verification step
+        navigateToVerification = true
     }
 }

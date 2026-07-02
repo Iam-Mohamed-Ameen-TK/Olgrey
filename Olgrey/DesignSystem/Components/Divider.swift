@@ -9,20 +9,23 @@ import SwiftUI
 
 struct AuthDivider: View {
 
+    var text: String = "or continue with"
+
     var body: some View {
 
         HStack {
 
             Rectangle()
-                .fill(Color.white.opacity(0.15))
+                .fill(LinearGradient.beigeGold.opacity(0.15))
                 .frame(height: 1)
 
-            Text("or continue with")
+            Text(text)
                 .font(.footnote)
-                .foregroundColor(.white.opacity(0.7))
+                .foregroundStyle(LinearGradient.beigeGold)
+                .opacity(0.7)
 
             Rectangle()
-                .fill(Color.white.opacity(0.15))
+                .fill(LinearGradient.beigeGold.opacity(0.15))
                 .frame(height: 1)
 
         }

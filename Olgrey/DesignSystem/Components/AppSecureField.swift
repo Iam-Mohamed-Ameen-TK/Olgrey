@@ -20,7 +20,8 @@ struct AppSecureField: View {
         HStack(spacing: 15) {
 
             Image(systemName: "lock.fill")
-                .foregroundColor(.white.opacity(0.7))
+                .foregroundStyle(LinearGradient.beigeGold)
+                .opacity(0.7)
                 .frame(width: 20)
 
             if isVisible {
@@ -28,18 +29,20 @@ struct AppSecureField: View {
                 TextField("", text: $text)
                     .placeholder(when: text.isEmpty) {
                         Text(title)
-                            .foregroundColor(.white.opacity(0.5))
+                            .foregroundStyle(LinearGradient.beigeGold)
+                            .opacity(0.5)
                     }
-                    .foregroundColor(.white)
+                    .foregroundStyle(LinearGradient.beigeGold)
 
             } else {
 
                 SecureField("", text: $text)
                     .placeholder(when: text.isEmpty) {
                         Text(title)
-                            .foregroundColor(.white.opacity(0.5))
+                            .foregroundStyle(LinearGradient.beigeGold)
+                            .opacity(0.5)
                     }
-                    .foregroundColor(.white)
+                    .foregroundStyle(LinearGradient.beigeGold)
             }
 
             Button {
@@ -51,12 +54,13 @@ struct AppSecureField: View {
             } label: {
 
                 Image(systemName: isVisible ? "eye.slash.fill" : "eye.fill")
-                    .foregroundColor(.white.opacity(0.7))
+                    .foregroundStyle(LinearGradient.beigeGold)
+                    .opacity(0.7)
             }
 
         }
-        .padding()
-        .frame(height: 58)
+        .padding(.horizontal, 16)
+        .frame(height: 46)
         .background(Color.white.opacity(0.08))
         .overlay(
             RoundedRectangle(cornerRadius: 16)

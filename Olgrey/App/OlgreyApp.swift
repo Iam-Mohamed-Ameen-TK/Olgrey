@@ -11,7 +11,7 @@ import SwiftUI
 struct OlgreyApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            SignupView()
         }
     }
 }

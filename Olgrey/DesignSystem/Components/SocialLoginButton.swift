@@ -39,45 +39,64 @@ enum SocialLoginType {
 struct SocialLoginButton: View {
 
     let type: SocialLoginType
+    var isCapsule: Bool = false
     var action: () -> Void = {}
 
     var body: some View {
 
         Button(action: action) {
 
-            VStack(spacing: 8) {
-
-                ZStack {
-
-                    Circle()
-                        .fill(Color.white.opacity(0.08))
-                        .frame(width: 62, height: 62)
-                        .overlay(
-                            Circle()
-                                .stroke(Color.white.opacity(0.15), lineWidth: 1)
-                        )
-
-                    if type.usesSystemImage {
-
-                        Image(systemName: type.icon)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 26, height: 26)
-                            .foregroundColor(.white)
-
-                    } else {
-
-                        Image(type.icon)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 26, height: 26)
-                    }
+            if isCapsule {
+                HStack(spacing: 12) {
+                    iconView
+                    Text("Continue with \(type.label)")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundStyle(LinearGradient.beigeGold)
                 }
+                .padding(.horizontal, 20)
+                .frame(height: 44)
+                .background(Color.white.opacity(0.08))
+                .clipShape(Capsule())
+                .overlay(
+                    Capsule()
+                        .stroke(LinearGradient.beigeGold.opacity(0.5), lineWidth: 1)
+                )
+            } else {
+                VStack(spacing: 8) {
+                    ZStack {
+                        Circle()
+                            .fill(LinearGradient.beigeGold.opacity(0.08))
+                            .frame(width: 62, height: 62)
+                            .overlay(
+                                Circle()
+                                    .stroke(LinearGradient.beigeGold, lineWidth: 1)
+                                    .opacity(0.5)
+                            )
+                        
+                        iconView
+                    }
 
-                Text(type.label)
-                    .font(.system(size: 11, weight: .medium))
-                    .foregroundColor(.white.opacity(0.65))
+                    Text(type.label)
+                        .font(.system(size: 11, weight: .medium))
+                        .foregroundStyle(LinearGradient.beigeGold)
+                }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var iconView: some View {
+        if type.usesSystemImage {
+            Image(systemName: type.icon)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 24, height: 24)
+                .foregroundStyle(LinearGradient.beigeGold)
+        } else {
+            Image(type.icon)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 26, height: 26)
         }
     }
 }

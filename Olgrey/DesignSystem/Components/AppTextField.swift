@@ -19,21 +19,23 @@ struct AppTextField: View {
         HStack(spacing: 15) {
 
             Image(systemName: systemImage)
-                .foregroundColor(.white.opacity(0.7))
+                .foregroundStyle(LinearGradient.beigeGold)
+                .opacity(0.7)
                 .frame(width: 20)
 
             TextField("", text: $text)
                 .placeholder(when: text.isEmpty) {
                     Text(title)
-                        .foregroundColor(.white.opacity(0.5))
+                        .foregroundStyle(LinearGradient.beigeGold)
+                        .opacity(0.5)
                 }
-                .foregroundColor(.white)
+                .foregroundStyle(LinearGradient.beigeGold)
                 .keyboardType(keyboardType)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
         }
-        .padding()
-        .frame(height: 58)
+        .padding(.horizontal, 16)
+        .frame(height: 46)
         .background(Color.white.opacity(0.08))
         .overlay(
             RoundedRectangle(cornerRadius: 16)

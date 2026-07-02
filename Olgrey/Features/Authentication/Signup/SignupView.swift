@@ -14,92 +14,170 @@ struct SignupView: View {
 
     var body: some View {
 
-        ZStack {
+        NavigationStack {
 
-            // MARK: - Background
-            Color.black.ignoresSafeArea()
+            ZStack {
 
-            GeometryReader { geometry in
-                ScrollView(showsIndicators: false) {
+                // MARK: - Background
+                Image("login_background_light_mode")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
 
-                    VStack(spacing: 20) {
+                Color.black.opacity(0.30)
+                    .ignoresSafeArea()
 
-                        Spacer()
+                GeometryReader { geometry in
+                    ScrollView(showsIndicators: false) {
 
-                        Text("Create Account")
-                            .font(.system(size: 34, weight: .bold))
-                            .foregroundColor(.white)
+                        VStack(spacing: 20) {
 
-                        Text("Sign up to get started")
-                            .font(.system(size: 16))
-                            .foregroundColor(.white.opacity(0.75))
-                            .padding(.bottom, 20)
+                            Spacer()
+                                .frame(height: 20)
 
-                        // MARK: - Fields
-                        GlassView {
+                            // MARK: - Glass Card
+                            GlassView {
 
-                            VStack(spacing: 20) {
+                                VStack(spacing: 10) {
 
-                                AppTextField(
-                                    title: "Full Name",
-                                    systemImage: "person.fill",
-                                    text: $viewModel.name
-                                )
+                                    // Header
+                                    VStack(spacing: 6) {
+                                        Text("Create Your Account")
+                                            .font(.system(size: 26, weight: .bold))
+                                            .foregroundStyle(LinearGradient.beigeGold)
 
-                                AppTextField(
-                                    title: "Email",
-                                    systemImage: "envelope.fill",
-                                    text: $viewModel.email,
-                                    keyboardType: .emailAddress
-                                )
+                                        Image("signup_logo")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(height: 36)
 
-                                AppSecureField(
-                                    title: "Password",
-                                    text: $viewModel.password,
-                                    isVisible: $viewModel.isPasswordVisible
-                                )
-
-                                AppSecureField(
-                                    title: "Confirm Password",
-                                    text: $viewModel.confirmPassword,
-                                    isVisible: $viewModel.isConfirmPasswordVisible
-                                )
-
-                                PrimaryButton(title: "Create Account") {
-                                    viewModel.signup()
-                                }
-
-                                HStack(spacing: 4) {
-
-                                    Text("Already have an account?")
-                                        .foregroundColor(.white.opacity(0.75))
-
-                                    Button {
-                                        dismiss()
-                                    } label: {
-                                        Text("Login")
-                                            .foregroundColor(.white)
-                                            .fontWeight(.bold)
+                                        Text("Join Olgrey and start your journey\ntowards something meaningful.")
+                                            .font(.system(size: 13))
+                                            .multilineTextAlignment(.center)
+                                            .foregroundStyle(LinearGradient.beigeGold)
+                                            .opacity(0.85)
+                                            .padding(.top, 2)
                                     }
-                                }
-                                .padding(.top, 8)
-                            }
-                        }
-                        .padding(.horizontal, 24)
+                                    .padding(.bottom, 6)
 
-                        Spacer()
+                                    // Form Fields
+                                    VStack(spacing: 4) {
+                                        fieldTitle("Full Name")
+                                        AppTextField(
+                                            title: "Enter your full name",
+                                            systemImage: "person",
+                                            text: $viewModel.name
+                                        )
+                                    }
+
+                                    VStack(spacing: 4) {
+                                        fieldTitle("Password")
+                                        AppSecureField(
+                                            title: "Create a password",
+                                            text: $viewModel.password,
+                                            isVisible: $viewModel.isPasswordVisible
+                                        )
+                                    }
+
+                                    VStack(spacing: 4) {
+                                        fieldTitle("Confirm Password")
+                                        AppSecureField(
+                                            title: "Confirm your password",
+                                            text: $viewModel.confirmPassword,
+                                            isVisible: $viewModel.isConfirmPasswordVisible
+                                        )
+                                    }
+
+                                    // Checkbox
+                                    HStack(spacing: 10) {
+                                        Button {
+                                            viewModel.agreedToTerms.toggle()
+                                        } label: {
+                                            Image(systemName: viewModel.agreedToTerms ? "checkmark.square.fill" : "square")
+                                                .foregroundStyle(LinearGradient.beigeGold)
+                                        }
+
+                                        Text("I agree to the Terms of Service and Privacy Policy")
+                                            .font(.system(size: 12))
+                                            .foregroundStyle(LinearGradient.beigeGold)
+                                            .opacity(0.9)
+
+                                        Spacer()
+                                    }
+                                    .padding(.vertical, 2)
+
+                                    // Continue navigates to VerificationView
+                                    PrimaryButton(
+                                        title: "Continue",
+                                        trailingIcon: "arrow.right",
+                                        isLoading: viewModel.isLoading
+                                    ) {
+                                        viewModel.signup()
+                                    }
+
+                                    AuthDivider(text: "OR")
+
+                                    HStack(spacing: 15) {
+                                        SocialLoginButton(type: .google, isCapsule: true)
+                                        SocialLoginButton(type: .apple, isCapsule: true)
+                                    }
+
+                                    HStack(spacing: 4) {
+                                        Text("Already have an account?")
+                                            .foregroundStyle(LinearGradient.beigeGold)
+                                            .opacity(0.85)
+                                            .font(.system(size: 13))
+
+                                        Button {
+                                            dismiss()
+                                        } label: {
+                                            Text("Log In")
+                                                .foregroundStyle(LinearGradient.darkRed)
+                                                .fontWeight(.bold)
+                                                .font(.system(size: 13))
+                                        }
+                                    }
+                                    .padding(.top, 2)
+                                }
+                            }
+                            .padding(.horizontal, 24)
+
+                            Spacer()
+                                .frame(height: 20)
+                        }
+                        .frame(minHeight: geometry.size.height)
+                        .frame(maxWidth: .infinity)
                     }
-                    .frame(minHeight: geometry.size.height)
-                    .frame(maxWidth: .infinity)
                 }
             }
+            .navigationBarHidden(true)
+            .alert(isPresented: $viewModel.showAlert) {
+                Alert(
+                    title: Text("Sign Up"),
+                    message: Text(viewModel.alertMessage),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+            .navigationDestination(isPresented: $viewModel.navigateToVerification) {
+                VerificationView(email: viewModel.email)
+            }
         }
-        .alert(isPresented: $viewModel.showAlert) {
-            Alert(
-                title: Text("Sign Up"),
-                message: Text(viewModel.alertMessage),
-                dismissButton: .default(Text("OK"))
-            )
-        }
+        .navigationBarHidden(true)
+    }
+
+    private func fieldTitle(_ title: String) -> some View {
+        Text(title)
+            .font(.system(size: 13, weight: .bold))
+            .foregroundStyle(LinearGradient.beigeGold)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.leading, 4)
+    }
+}
+
+// MARK: - Preview
+struct SignupView_Previews: PreviewProvider {
+    static var previews: some View {
+        SignupView()
+            .preferredColorScheme(.dark)
     }
 }
