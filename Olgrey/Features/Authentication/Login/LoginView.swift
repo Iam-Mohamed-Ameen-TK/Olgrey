@@ -13,6 +13,8 @@ struct LoginView: View {
 
     var body: some View {
 
+        NavigationStack {
+
         ZStack {
 
             // MARK: - Background
@@ -137,6 +139,13 @@ struct LoginView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
+        .navigationDestination(isPresented: $viewModel.navigateToMain) {
+            MainTabView()
+                .navigationBarHidden(true)
+        }
+
+        } // NavigationStack
+        .navigationBarHidden(true)
     }
 }
 

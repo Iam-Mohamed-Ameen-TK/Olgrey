@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct OlgreyApp: App {
     var body: some Scene {
         WindowGroup {
-            SignupView()
+            MainTabView()
         }
+        .modelContainer(for: UserProfile.self)
     }
 }

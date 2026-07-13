@@ -18,6 +18,7 @@ final class LoginViewModel: ObservableObject {
 
     @Published var showAlert = false
     @Published var alertMessage = ""
+    @Published var navigateToMain = false
 
     func loginUser() {
 
@@ -36,10 +37,8 @@ final class LoginViewModel: ObservableObject {
         isLoading = true
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-
             self.isLoading = false
-
-            print("Login Success")
+            self.navigateToMain = true
         }
     }
 }

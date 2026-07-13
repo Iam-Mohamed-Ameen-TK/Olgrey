@@ -105,7 +105,7 @@ struct SignupView: View {
                                         Spacer()
                                     }
                                     .padding(.vertical, 2)
-
+	
                                     // Continue navigates to VerificationView
                                     PrimaryButton(
                                         title: "Continue",
