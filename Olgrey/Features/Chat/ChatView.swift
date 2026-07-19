@@ -82,23 +82,7 @@ struct ChatView: View {
 
     // MARK: - Nav Bar
     private var navBar: some View {
-        HStack(alignment: .center) {
-            
-            // Back Button
-            Button {
-                dismiss()
-            } label: {
-                HStack(spacing: 4) {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .semibold))
-                    Text("Messages")
-                        .font(.system(size: 17))
-                }
-                .foregroundColor(goldText)
-            }
-            
-            Spacer()
-            
+        ZStack {
             // Center Profile Info
             VStack(spacing: 2) {
                 Text("Alex Johnson")
@@ -111,20 +95,35 @@ struct ChatView: View {
                     .tracking(1.5)
                     .foregroundColor(goldText)
             }
-            .offset(x: -8) // slight adjustment to perfectly center visually
             
-            Spacer()
-            
-            // Avatar
-            Image("alex_avatar") // Replace with actual image asset if available
-                .resizable()
-                .scaledToFill()
-                .frame(width: 44, height: 44)
-                .clipShape(Circle())
-                .overlay(
-                    Circle().stroke(Color.white.opacity(0.3), lineWidth: 1)
-                )
-                .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
+            HStack(alignment: .center) {
+                // Back Button
+                Button {
+                    dismiss()
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 18, weight: .semibold))
+                        Text("Messages")
+                            .font(.system(size: 17))
+                    }
+                    .foregroundColor(goldText)
+                }
+                
+                Spacer()
+                
+                // Avatar
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 44, height: 44)
+                    .foregroundColor(burgundy.opacity(0.8))
+                    .clipShape(Circle())
+                    .overlay(
+                        Circle().stroke(Color.white.opacity(0.3), lineWidth: 1)
+                    )
+                    .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
+            }
         }
         .padding(.horizontal, 16)
         .padding(.top, 10)
