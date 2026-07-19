@@ -155,11 +155,10 @@ struct OTPInputView: View {
                     if digits[index].count > 1 {
                         digits[index] = String(digits[index].last!)
                     }
+                    
                     if !digits[index].isEmpty && index < 5 {
                         focusedIndex = index + 1
-                    }
-                } onDelete: {
-                    if digits[index].isEmpty && index > 0 {
+                    } else if digits[index].isEmpty && index > 0 {
                         focusedIndex = index - 1
                     }
                 }
@@ -175,7 +174,6 @@ struct OTPDigitField: View {
     @Binding var digit: String
     var isFocused: Bool
     var onChange: () -> Void
-    var onDelete: () -> Void
 
     var body: some View {
         TextField("", text: $digit)
