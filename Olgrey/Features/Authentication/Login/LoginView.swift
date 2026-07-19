@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct LoginView: View {
 
     @StateObject private var viewModel = LoginViewModel()
+    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
 
@@ -88,7 +90,7 @@ struct LoginView: View {
                                 }
 
                                 PrimaryButton(title: "Login") {
-                                    viewModel.loginUser()
+                                    viewModel.loginUser(modelContext: modelContext)
                                 }
 
                                 AuthDivider()
@@ -154,5 +156,6 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
             .preferredColorScheme(.dark)
+            .modelContainer(for: UserProfile.self, inMemory: true)
     }
 }

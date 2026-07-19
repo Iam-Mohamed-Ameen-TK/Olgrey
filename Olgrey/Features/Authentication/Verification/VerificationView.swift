@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct VerificationView: View {
 
     @StateObject private var viewModel: VerificationViewModel
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
 
-    init(email: String = "") {
-        _viewModel = StateObject(wrappedValue: VerificationViewModel(email: email))
+    init(fullName: String = "", email: String = "") {
+        _viewModel = StateObject(wrappedValue: VerificationViewModel(fullName: fullName, email: email))
     }
 
     var body: some View {
@@ -143,7 +145,7 @@ struct VerificationView: View {
                                         isLoading: viewModel.isLoading,
                                         isDisabled: !viewModel.canProceed
                                     ) {
-                                        viewModel.complete()
+                                        viewModel.complete(modelContext: modelContext)
                                     }
                                 }
                             }
@@ -272,7 +274,8 @@ struct GenderPicker: View {
 // MARK: - Preview
 struct VerificationView_Previews: PreviewProvider {
     static var previews: some View {
-        VerificationView(email: "user@example.com")
+        VerificationView(fullName: "Test User", email: "user@example.com")
             .preferredColorScheme(.dark)
+            .modelContainer(for: UserProfile.self, inMemory: true)
     }
 }

@@ -7,9 +7,11 @@
 
 import Foundation
 import Combine
+import SwiftData
 
 final class VerificationViewModel: ObservableObject {
 
+    @Published var fullName: String = ""
     @Published var dob: String = ""
     @Published var gender: String = ""
     @Published var email: String = ""
@@ -25,8 +27,9 @@ final class VerificationViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var alertMessage: String = ""
 
-    // Pre-fill email from signup if provided
-    init(email: String = "") {
+    // Pre-fill from signup
+    init(fullName: String = "", email: String = "") {
+        self.fullName = fullName
         self.email = email
     }
 
@@ -60,17 +63,36 @@ final class VerificationViewModel: ObservableObject {
         navigateToPhoneOTP = true
     }
 
-    func complete() {
+    func complete(modelContext: ModelContext) {
         guard canProceed else {
             alertMessage = "Please verify your email and phone, and fill in all fields."
             showAlert = true
             return
         }
         isLoading = true
-        // TODO: Call API to complete profile
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+
+        // Fetch existing profile or create a new one
+        let descriptor = FetchDescriptor<UserProfile>()
+        let existingProfiles = (try? modelContext.fetch(descriptor)) ?? []
+
+        let profile: UserProfile
+        if let existing = existingProfiles.first {
+            profile = existing
+        } else {
+            profile = UserProfile()
+            modelContext.insert(profile)
+        }
+
+        // Save all collected data to the local DB
+        profile.fullName = fullName
+        profile.email    = email
+        profile.phone    = phone
+
+        try? modelContext.save()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isLoading = false
-            print("Profile completion successful")
+            print("Profile saved to local DB successfully")
         }
     }
 }

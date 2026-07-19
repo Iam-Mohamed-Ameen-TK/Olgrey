@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftData
 
 final class LoginViewModel: ObservableObject {
 
@@ -20,7 +21,7 @@ final class LoginViewModel: ObservableObject {
     @Published var alertMessage = ""
     @Published var navigateToMain = false
 
-    func loginUser() {
+    func loginUser(modelContext: ModelContext) {
 
         guard !login.email.isEmpty else {
             alertMessage = "Please enter your email."
@@ -35,6 +36,21 @@ final class LoginViewModel: ObservableObject {
         }
 
         isLoading = true
+
+        // Save user's email to local DB
+        let descriptor = FetchDescriptor<UserProfile>()
+        let existingProfiles = (try? modelContext.fetch(descriptor)) ?? []
+
+        let profile: UserProfile
+        if let existing = existingProfiles.first {
+            profile = existing
+        } else {
+            profile = UserProfile()
+            modelContext.insert(profile)
+        }
+
+        profile.email = login.email
+        try? modelContext.save()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.isLoading = false

@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SignupView: View {
 
     @StateObject private var viewModel = SignupViewModel()
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
 
@@ -112,7 +114,7 @@ struct SignupView: View {
                                         trailingIcon: "arrow.right",
                                         isLoading: viewModel.isLoading
                                     ) {
-                                        viewModel.signup()
+                                        viewModel.signup(modelContext: modelContext)
                                     }
 
                                     AuthDivider(text: "OR")
@@ -159,7 +161,7 @@ struct SignupView: View {
                 )
             }
             .navigationDestination(isPresented: $viewModel.navigateToVerification) {
-                VerificationView(email: viewModel.email)
+                VerificationView(fullName: viewModel.name, email: viewModel.email)
             }
         }
         .navigationBarHidden(true)
@@ -179,5 +181,6 @@ struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
         SignupView()
             .preferredColorScheme(.dark)
+            .modelContainer(for: UserProfile.self, inMemory: true)
     }
 }

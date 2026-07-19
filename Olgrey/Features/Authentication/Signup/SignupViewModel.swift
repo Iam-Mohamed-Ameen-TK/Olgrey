@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftData
 
 final class SignupViewModel: ObservableObject {
 
@@ -25,7 +26,7 @@ final class SignupViewModel: ObservableObject {
 
     @Published var navigateToVerification: Bool = false
 
-    func signup() {
+    func signup(modelContext: ModelContext) {
 
         guard !name.isEmpty else {
             alertMessage = "Please enter your name."
@@ -56,6 +57,21 @@ final class SignupViewModel: ObservableObject {
             showAlert = true
             return
         }
+
+        // Save user's name to local DB
+        let descriptor = FetchDescriptor<UserProfile>()
+        let existingProfiles = (try? modelContext.fetch(descriptor)) ?? []
+
+        let profile: UserProfile
+        if let existing = existingProfiles.first {
+            profile = existing
+        } else {
+            profile = UserProfile()
+            modelContext.insert(profile)
+        }
+
+        profile.fullName = name
+        try? modelContext.save()
 
         // Navigate to verification step
         navigateToVerification = true
