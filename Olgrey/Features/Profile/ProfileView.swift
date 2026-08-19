@@ -12,7 +12,7 @@ import PhotosUI
 struct ProfileView: View {
 
     // SwiftData query – always at most one profile record
-    @Query private var profiles: [UserProfile]
+    @Query private var profiles: [UserProfileModel]
     @Environment(\.modelContext) private var modelContext
 
     @State private var showEdit = false
@@ -26,9 +26,9 @@ struct ProfileView: View {
     private let textDim  = Color(red: 160/255, green: 120/255, blue: 100/255)
 
     // Lazily create a profile record if none exists yet
-    private var profile: UserProfile {
+    private var profile: UserProfileModel {
         if let existing = profiles.first { return existing }
-        let new = UserProfile(
+        let new = UserProfileModel(
             fullName: "Your Name",
             username: "username",
             email:    "you@example.com",
@@ -241,5 +241,5 @@ struct ProfileView: View {
 // MARK: – Preview
 #Preview {
     ProfileView()
-        .modelContainer(for: UserProfile.self, inMemory: true)
+        .modelContainer(for: UserProfileModel.self, inMemory: true)
 }

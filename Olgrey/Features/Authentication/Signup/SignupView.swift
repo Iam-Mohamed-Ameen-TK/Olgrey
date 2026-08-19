@@ -181,6 +181,6 @@ struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
         SignupView()
             .preferredColorScheme(.dark)
-            .modelContainer(for: UserProfile.self, inMemory: true)
+            .modelContainer(for: UserProfileModel.self, inMemory: true)
     }
 }

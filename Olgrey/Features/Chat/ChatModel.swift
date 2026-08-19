@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Message Model
-struct ChatMessage: Identifiable {
+struct ChatModel: Identifiable {
     let id = UUID()
     let text: String
     let isCurrentUser: Bool

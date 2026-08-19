@@ -38,14 +38,14 @@ final class LoginViewModel: ObservableObject {
         isLoading = true
 
         // Save user's email to local DB
-        let descriptor = FetchDescriptor<UserProfile>()
+        let descriptor = FetchDescriptor<UserProfileModel>()
         let existingProfiles = (try? modelContext.fetch(descriptor)) ?? []
 
-        let profile: UserProfile
+        let profile: UserProfileModel
         if let existing = existingProfiles.first {
             profile = existing
         } else {
-            profile = UserProfile()
+            profile = UserProfileModel()
             modelContext.insert(profile)
         }
 

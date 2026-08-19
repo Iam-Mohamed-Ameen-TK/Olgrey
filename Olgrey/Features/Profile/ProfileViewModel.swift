@@ -11,11 +11,11 @@ import SwiftData
 @Observable
 final class ProfileViewModel {
 
-    var profile: UserProfile
+    var profile: UserProfileModel
     var showEditSheet: Bool = false
     var showChangePassword: Bool = false
 
-    init(profile: UserProfile) {
+    init(profile: UserProfileModel) {
         self.profile = profile
     }
 

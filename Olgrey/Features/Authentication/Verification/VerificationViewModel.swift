@@ -72,14 +72,14 @@ final class VerificationViewModel: ObservableObject {
         isLoading = true
 
         // Fetch existing profile or create a new one
-        let descriptor = FetchDescriptor<UserProfile>()
+        let descriptor = FetchDescriptor<UserProfileModel>()
         let existingProfiles = (try? modelContext.fetch(descriptor)) ?? []
 
-        let profile: UserProfile
+        let profile: UserProfileModel
         if let existing = existingProfiles.first {
             profile = existing
         } else {
-            profile = UserProfile()
+            profile = UserProfileModel()
             modelContext.insert(profile)
         }
 

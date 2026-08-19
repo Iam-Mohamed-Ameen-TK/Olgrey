@@ -10,7 +10,7 @@ import PhotosUI
 
 struct EditProfileView: View {
 
-    @Bindable var profile: UserProfile
+    @Bindable var profile: UserProfileModel
     @Environment(\.dismiss) private var dismiss
 
     @State private var photoItem: PhotosPickerItem?

@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - Message Bubble
 struct MessageBubble: View {
-    let message: ChatMessage
+    let message: ChatModel
     let burgundy: Color
     let goldText: Color
     let receivedBg: Color

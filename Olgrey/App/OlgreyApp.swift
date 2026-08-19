@@ -14,6 +14,6 @@ struct OlgreyApp: App {
         WindowGroup {
             MainTabView()
         }
-        .modelContainer(for: UserProfile.self)
+        .modelContainer(for: UserProfileModel.self)
     }
 }

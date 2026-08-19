@@ -22,7 +22,7 @@ struct MainTabView: View {
                     HomeView()
                         .transition(.opacity)
                 case .chat:
-                    ChatView()
+                    ChatListView()
                         .transition(.opacity)
                 case .settings:
                     SettingsView()
