@@ -61,11 +61,16 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 
-
+##########################################################
+##########################################################
 ##BACKEND
+##########################################################
+##########################################################
 
 # Created by https://www.toptal.com/developers/gitignore/api/node
 # Edit at https://www.toptal.com/developers/gitignore?templates=node
+
+.DS_Store
 
 ### Node ###
 # Logs
